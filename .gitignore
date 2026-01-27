@@ -1,3 +1,4 @@
+HEAD
 # Python
 *.pyc
 __pycache__/
@@ -24,3 +25,31 @@ venv/
 
 # Other
 *.swp
+=======
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# PyCharm
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Pytest cache
+.pytest_cache/
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# OS files
+.DS_Store
+homework_10_2
