@@ -1,4 +1,5 @@
 
+
 # Python cache
 __pycache__/
 *.py[cod]
@@ -39,9 +40,13 @@ poetry.lock
 
 # Byte-compiled / optimized / DLL files
 
+
+# Byte-compiled / optimized / DLL files
+
 __pycache__/
 *.py[cod]
 *$py.class
+
 
 # C extensions
 *.so
@@ -139,4 +144,27 @@ feature/homework_10_1
 
 # Coverage reports
 htmlcov/
+
+
+# Virtual environment
+venv/
+
+# PyCharm
+.idea/
+
+# Coverage reports
+htmlcov/
+.coverage
+
+# Pytest cache
+.pytest_cache/
+
+# Distribution / packaging
+*.egg
+*.egg-info/
+dist/
+build/
+
+# OS files
+.DS_Store
 
