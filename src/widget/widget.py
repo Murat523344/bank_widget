@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Импорты всегда в начале файла
-from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
@@ -14,7 +11,7 @@ def mask_account_card(info: str) -> str:
         card_number = int(parts[-1])
         card_name = " ".join(parts[:-1])
         return f"{card_name} {get_mask_card_number(card_number)}"
-=======
+
 from src.masks import get_mask_account, get_mask_card_number
 
 
@@ -46,12 +43,11 @@ def mask_account_card(card_info: str) -> str:
             return f"{name} {get_mask_account(number)}"
 
     return card_info
->>>>>>> homework_10_2
+
 
 
 def get_date(date_str: str) -> str:
     """
-<<<<<<< HEAD
     Преобразует строку даты из формата ISO в формат "ДД.ММ.ГГГГ".
 
     Аргументы:
@@ -64,18 +60,4 @@ def get_date(date_str: str) -> str:
 
     dt = datetime.fromisoformat(date_str)
     return dt.strftime("%d.%m.%Y")
-=======
-    Преобразует дату в формат DD.MM.YYYY
-    """
-    if not date_str:
-        return ""
 
-    date_str = date_str.replace("/", "-")
-    parts = date_str.split("-")
-
-    if len(parts) != 3:
-        return date_str
-
-    year, month, day = parts
-    return f"{day}.{month}.{year}"
->>>>>>> homework_10_2
