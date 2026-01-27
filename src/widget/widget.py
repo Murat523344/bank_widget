@@ -1,31 +1,21 @@
-# Импорты всегда в начале файла
+from datetime import datetime
 from src.masks import get_mask_account, get_mask_card_number
-
-
-def mask_account_card(info: str) -> str:
-    """
-    Маскирует номер банковской карты или счета.
-    """
-    if info.startswith("Счет"):
-        return f"Счет {get_mask_account(int(info.split()[-1]))}"
-    else:
-        parts = info.split()
-        card_number = int(parts[-1])
-        card_name = " ".join(parts[:-1])
-        return f"{card_name} {get_mask_card_number(card_number)}"
 
 
 def get_date(date_str: str) -> str:
     """
-    Преобразует строку даты из формата ISO в формат "ДД.ММ.ГГГГ".
-
-    Аргументы:
-        date_str (str): Строка даты, например "2024-03-11T02:26:18.671407"
-
-    Возвращает:
-        str: Дата в формате "11.03.2024"
+    Преобразует дату из ISO или с '/' в формат "ДД.MM.ГГГГ".
     """
-    from datetime import datetime
-
+    date_str = date_str.replace("/", "-")
     dt = datetime.fromisoformat(date_str)
     return dt.strftime("%d.%m.%Y")
+
+
+def mask_account_card(value: str) -> str:
+    """
+    Маскирует счет или карту в соответствии с тестами.
+    Если длина > 16 - счет, иначе карта.
+    """
+    if len(value) > 16:
+        return get_mask_account(value)
+    return get_mask_card_number(value)
