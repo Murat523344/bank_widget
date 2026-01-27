@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# virtual environment
+venv/
+.env
+.env.*
+
+# macOS
+.DS_Store
+
+# coverage reports
+.coverage
+htmlcov/
+
+# pytest
+.pytest_cache/
+
+# PyCharm
+.idea/
+*.iml
+
+# Poetry
+poetry.lock
+
+# mypy
+.mypy_cache/
+.dmypy.json
+
+# logs
+*.log
