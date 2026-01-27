@@ -1,40 +1,26 @@
-# -----------------------
 # Python
-# -----------------------
+*.pyc
 __pycache__/
-*.py[cod]
 *.pyo
 *.pyd
-*.pyc
+*.py[cod]
+*.pylint.d
 
-# Distribution / packaging
-build/
-dist/
-*.egg-info/
-.eggs/
+# Virtual environments
+venv/
+.env/
+.env.*
 
-# -----------------------
-# PyCharm / IDE
-# -----------------------
+# PyCharm
 .idea/
 *.iml
 *.iws
 *.ipr
-
-# PyCharm inspection profiles
-inspectionProfiles/
-profiles_settings.xml
-
-# -----------------------
-# Virtual environments
-# -----------------------
-venv/
-env/
-.venv/
-.env/
-
-# -----------------------
-# OS files
-# -----------------------
 .DS_Store
-Thumbs.db
+
+# Byte-compiled / cache
+*.class
+*.log
+
+# Other
+*.swp
