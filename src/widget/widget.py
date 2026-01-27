@@ -1,5 +1,5 @@
 # Импорты всегда в начале файла
-from src.masks import get_mask_card_number, get_mask_account
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(info: str) -> str:
@@ -13,7 +13,6 @@ def mask_account_card(info: str) -> str:
         card_number = int(parts[-1])
         card_name = " ".join(parts[:-1])
         return f"{card_name} {get_mask_card_number(card_number)}"
-
 
 
 def get_date(date_str: str) -> str:
