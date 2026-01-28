@@ -1,30 +1,19 @@
-<<<<<<< HEAD
-def filter_by_state(operations: list[dict], state: str = "EXECUTED") -> list[dict]:
-    """
-    Фильтрует список операций по состоянию (state).
-=======
-def filter_by_state(operations: list, state: str = "EXECUTED") -> list:
+from typing import List, Dict
+
+
+def filter_by_state(operations: List[Dict], state: str = "EXECUTED") -> List[Dict]:
     """
     Фильтрует операции по статусу state.
->>>>>>> fe4f832 (Домашка: проект с src и тестами)
     """
     return [op for op in operations if op.get("state") == state]
 
 
-<<<<<<< HEAD
-def sort_by_date(operations: list[dict]) -> list[dict]:
+def sort_by_date(operations: List[Dict], reverse: bool = True) -> List[Dict]:
     """
-    Сортировка операций по дате в порядке убывания.
-    """
-    return sorted(operations, key=lambda x: x["date"], reverse=True)
-=======
-def sort_by_date(operations: list, reverse: bool = True) -> list:
-    """
-    Сортирует операции по дате.
+    Сортирует операции по дате в порядке убывания.
     """
     return sorted(
         operations,
         key=lambda op: op.get("date", ""),
         reverse=reverse
     )
->>>>>>> fe4f832 (Домашка: проект с src и тестами)
