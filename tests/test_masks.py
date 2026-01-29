@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import pytest
 
 from src.masks import get_mask_account, get_mask_card_number
@@ -9,9 +11,9 @@ from src.masks import get_mask_account, get_mask_card_number
         ("12345678901234567890", "****567890"),
         ("1234567890", "1234567890"),
         ("", ""),
-    ]
+    ],
 )
-def test_get_mask_account(account, expected):
+def test_get_mask_account(account: str, expected: str) -> None:
     assert get_mask_account(account) == expected
 
 
@@ -21,7 +23,7 @@ def test_get_mask_account(account, expected):
         ("1234567890123456", "1234 56** **** 3456"),
         ("1234", "1234"),
         ("", ""),
-    ]
+    ],
 )
-def test_get_mask_card_number(card_number, expected):
+def test_get_mask_card_number(card_number: str, expected: str) -> None:
     assert get_mask_card_number(card_number) == expected
