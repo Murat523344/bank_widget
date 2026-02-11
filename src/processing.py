@@ -1,12 +1,19 @@
-def filter_by_state(operations: list[dict], state: str = "EXECUTED") -> list[dict]:
+from typing import Dict, List
+
+
+def filter_by_state(operations: List[Dict], state: str = "EXECUTED") -> List[Dict]:
     """
-    Фильтрует список операций по состоянию (state).
+    Фильтрует операции по статусу state.
     """
     return [op for op in operations if op.get("state") == state]
 
 
-def sort_by_date(operations: list[dict]) -> list[dict]:
+def sort_by_date(operations: List[Dict], reverse: bool = True) -> List[Dict]:
     """
-    Сортировка операций по дате в порядке убывания.
+    Сортирует операции по дате в порядке убывания.
     """
-    return sorted(operations, key=lambda x: x["date"], reverse=True)
+    return sorted(
+        operations,
+        key=lambda op: op.get("date", ""),
+        reverse=reverse
+    )
