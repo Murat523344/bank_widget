@@ -1,5 +1,7 @@
 import pytest
+
 from src.widget import get_date, mask_account_card
+
 
 @pytest.mark.parametrize("input_date,expected", [
     ("2022-09-15", "15.09.2022"),

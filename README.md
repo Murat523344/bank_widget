@@ -103,3 +103,26 @@ def sample_accounts():
     return ["12345678901234567890", "09876543210987654321"]
 
 >>>>>>> homework_10_2
+
+### Новый декоратор log
+
+Декоратор `log` позволяет логировать работу функций:
+
+- Логи можно писать в **консоль** или **в файл**, указывая параметр `filename`.
+- Логируются:
+  - успешное выполнение функции (`func_name ok`)
+  - ошибки и входные параметры (`func_name error: TypeError. Inputs: args, kwargs`)
+- Пробрасываются все исключения дальше.
+
+Пример использования:
+
+```python
+from src.decorators import log
+
+@log()
+def add(a, b):
+    return a + b
+
+@log(filename="mylog.txt")
+def divide(a, b):
+    return a / b
