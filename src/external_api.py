@@ -1,36 +1,35 @@
 import os
-from typing import Any
 
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv()  # загружаем переменные из .env
 
-API_KEY = os.getenv("EXCHANGE_API_KEY")
-URL = "https://api.apilayer.com/exchangerates_data/latest"
+EXCHANGE_API_KEY = os.getenv("EXCHANGE_API_KEY")
 
 
-def convert_to_rub(transaction: dict[str, Any]) -> float:
+def convert_to_rub(transaction: dict) -> float:
     """
-    Convert transaction amount to RUB.
+    Конвертирует транзакцию в рубли.
+    Если валюта USD или EUR, обращается к API для конвертации.
+    Если RUB — возвращает сумму без изменений.
 
-    :param transaction: transaction dict
-    :return: amount in RUB
+    :param transaction: словарь с ключами "amount" и "currency"
+    :return: сумма в рублях (float)
     """
-    amount = float(transaction.get("amount", 0))
-    currency = transaction.get("currency")
+    amount = transaction.get("amount", 0)
+    currency = transaction.get("currency", "RUB").upper()
 
     if currency == "RUB":
-        return amount
+        return float(amount)
 
     if currency in ("USD", "EUR"):
-        headers = {"apikey": API_KEY}
-        params = {"base": currency, "symbols": "RUB"}
+        url = f"https://api.apilayer.com/exchangerates_data/latest?symbols=RUB&base={currency}"
+        headers = {"apikey": EXCHANGE_API_KEY}
+        response = requests.get(url, headers=headers)
+        data = response.json()
+        rate = data["rates"]["RUB"]
+        return float(amount) * float(rate)
 
-        response = requests.get(URL, headers=headers, params=params, timeout=10)
-        response.raise_for_status()
-
-        rate = response.json()["rates"]["RUB"]
-        return amount * rate
-
-    return amount
+    # если неизвестная валюта — возвращаем сумму без изменений
+    return float(amount)
