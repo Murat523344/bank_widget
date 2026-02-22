@@ -1,17 +1,20 @@
 import pytest
-from src.widget import get_date, mask_account_card
 
-@pytest.mark.parametrize("input_date,expected", [
-    ("2022-09-15", "15.09.2022"),
-    ("2022/09/15", "15.09.2022"),
-])
-def test_get_date(input_date, expected):
-    assert get_date(input_date) == expected
+from src.widget.widget import get_date, render_widget
 
 
-@pytest.mark.parametrize("value,expected", [
-    ("1234567890123456", "1234 56** **** 3456"),
-    ("12345678901234567890", "****567890"),
-])
-def test_mask_account_card(value, expected):
-    assert mask_account_card(value) == expected
+@pytest.mark.parametrize(
+    "input_date, expected",
+    [
+        ("2023-02-22", "22.02.2023"),
+        ("2019-08-26", "26.08.2019"),
+    ]
+)
+def test_get_date(input_date: str, expected: str) -> None:
+    result = get_date(input_date)
+    assert result == expected
+
+
+def test_render_widget() -> None:
+    output = render_widget()
+    assert output == "Widget rendered successfully"

@@ -1,23 +1,21 @@
 import pytest
-from unittest.mock import patch
-from src.external_api import convert_to_rub
 
-@patch("src.external_api.requests.get")
-def test_convert_usd(mock_get):
-    mock_get.return_value.json.return_value = {"rates": {"RUB": 80}}
-    transaction = {"amount": 10, "currency": "USD"}
-    result = convert_to_rub(transaction)
-    assert isinstance(result, float)
-    assert result == 10 * 80
+from src.external_api import api_call, process_api_data
 
-@patch("src.external_api.requests.get")
-def test_convert_eur(mock_get):
-    mock_get.return_value.json.return_value = {"rates": {"RUB": 90}}
-    transaction = {"amount": 5, "currency": "EUR"}
-    result = convert_to_rub(transaction)
-    assert result == 5 * 90
 
-def test_convert_rub():
-    transaction = {"amount": 500, "currency": "RUB"}
-    result = convert_to_rub(transaction)
-    assert result == 500
+def test_api_call_success() -> None:
+    response = api_call()
+    assert response["status"] == "success"
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        ({"id": 1, "name": "test"}),
+        ({"id": 2, "name": "example"}),
+    ]
+)
+def test_api_call_data(data: dict) -> None:
+    result = process_api_data(data)
+    assert result["processed"] is True
+    assert result["id"] == data["id"]

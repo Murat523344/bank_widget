@@ -1,8 +1,9 @@
+# src/utils.py
 import json
-from typing import Any
+from typing import Any, List, Dict
 
 
-def read_json(path: str) -> list[dict[str, Any]]:
+def read_json(path: str) -> List[Dict[str, Any]]:
     """
     Читает JSON-файл с банковскими операциями.
 
@@ -21,3 +22,18 @@ def read_json(path: str) -> list[dict[str, Any]]:
 
     except (FileNotFoundError, json.JSONDecodeError):
         return []
+
+
+# Пример других утилит (если будут использоваться в тестах)
+def some_util_function(x: int) -> int:
+    """
+    Пример вспомогательной функции.
+    """
+    return x * 2
+
+
+def another_util_function(s: str) -> str:
+    """
+    Пример другой вспомогательной функции.
+    """
+    return s.strip().upper()
