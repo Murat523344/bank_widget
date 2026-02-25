@@ -1,6 +1,15 @@
-# src/utils.py
 import json
-from typing import Any, List, Dict
+import logging
+from typing import Any, Dict, List
+
+# --- Логгер для модуля utils ---
+logger = logging.getLogger("utils")
+logger.setLevel(logging.DEBUG)
+
+file_handler = logging.FileHandler("logs/utils.log", mode="w", encoding="utf-8")
+file_formatter = logging.Formatter("%(asctime)s | %(name)s | %(levelname)s | %(message)s")
+file_handler.setFormatter(file_formatter)
+logger.addHandler(file_handler)
 
 
 def read_json(path: str) -> List[Dict[str, Any]]:
@@ -16,24 +25,33 @@ def read_json(path: str) -> List[Dict[str, Any]]:
             data = json.load(file)
 
         if isinstance(data, list):
+            logger.debug(f"Файл {path} успешно прочитан, найдено {len(data)} записей")
             return data
 
+        logger.warning(f"Файл {path} прочитан, но содержимое не является списком")
         return []
 
-    except (FileNotFoundError, json.JSONDecodeError):
+    except FileNotFoundError:
+        logger.error(f"Файл {path} не найден")
+        return []
+    except json.JSONDecodeError:
+        logger.error(f"Файл {path} содержит некорректный JSON")
         return []
 
 
-# Пример других утилит (если будут использоваться в тестах)
 def some_util_function(x: int) -> int:
     """
     Пример вспомогательной функции.
     """
-    return x * 2
+    result = x * 2
+    logger.debug(f"some_util_function({x}) -> {result}")
+    return result
 
 
 def another_util_function(s: str) -> str:
     """
     Пример другой вспомогательной функции.
     """
-    return s.strip().upper()
+    result = s.strip().upper()
+    logger.debug(f"another_util_function({s!r}) -> {result!r}")
+    return result
