@@ -4,34 +4,28 @@ import pandas as pd
 
 from src.file_readers import read_transactions_from_csv, read_transactions_from_excel
 
+# Пример данных для теста
+sample_data = [
+    {"date": "2026-03-01", "amount": 100, "currency": "USD"},
+    {"date": "2026-03-02", "amount": 200, "currency": "EUR"},
+]
 
-@patch("src.file_readers.pd.read_csv")
+
+@patch("pandas.read_csv")
 def test_read_transactions_from_csv(mock_read_csv):
-    # имитируем CSV
-    mock_df = pd.DataFrame([
-        {"id": 1, "amount": 100, "category": "food"},
-        {"id": 2, "amount": 200, "category": "transport"},
-    ])
+    mock_df = pd.DataFrame(sample_data)
     mock_read_csv.return_value = mock_df
 
-    result = read_transactions_from_csv("fake_path.csv")
-
-    assert result == [
-        {"id": 1, "amount": 100, "category": "food"},
-        {"id": 2, "amount": 200, "category": "transport"},
-    ]
+    result = read_transactions_from_csv("dummy_path.csv")
+    assert result == sample_data
+    mock_read_csv.assert_called_once_with("dummy_path.csv")
 
 
-@patch("src.file_readers.pd.read_excel")
+@patch("pandas.read_excel")
 def test_read_transactions_from_excel(mock_read_excel):
-    # имитируем Excel
-    mock_df = pd.DataFrame([
-        {"id": 3, "amount": 300, "category": "entertainment"},
-    ])
+    mock_df = pd.DataFrame(sample_data)
     mock_read_excel.return_value = mock_df
 
-    result = read_transactions_from_excel("fake_path.xlsx")
-
-    assert result == [
-        {"id": 3, "amount": 300, "category": "entertainment"},
-    ]
+    result = read_transactions_from_excel("dummy_path.xlsx")
+    assert result == sample_data
+    mock_read_excel.assert_called_once_with("dummy_path.xlsx")
