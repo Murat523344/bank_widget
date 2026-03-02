@@ -103,3 +103,24 @@ def sample_accounts():
     return ["12345678901234567890", "09876543210987654321"]
 
 >>>>>>> homework_10_2
+
+## Новая функциональность
+
+В этом обновлении добавлены функции для работы с финансовыми операциями:
+
+1. **Чтение из CSV**  
+   Функция `read_csv_transactions(path)` принимает путь к CSV-файлу и возвращает список словарей с транзакциями.
+
+2. **Чтение из Excel**  
+   Функция `read_excel_transactions(path)` принимает путь к Excel-файлу и возвращает список словарей с транзакциями.
+
+### Пример использования
+
+```python
+from src.utils import read_csv_transactions, read_excel_transactions
+
+csv_data = read_csv_transactions("transactions.csv")
+excel_data = read_excel_transactions("transactions.xlsx")
+
+print(csv_data)
+print(excel_data)
