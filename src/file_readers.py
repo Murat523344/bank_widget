@@ -1,17 +1,16 @@
-from typing import Any, Dict, List, cast
-
+# src/file_readers.py
+from typing import List, Dict, Any, cast
 import pandas as pd
 
 
 def read_transactions_from_csv(file_path: str) -> List[Dict[str, Any]]:
     """
-    Считывает финансовые операции из CSV-файла.
+    Считывает финансовые операции из CSV-файла с разделителем ';'.
 
     :param file_path: путь к CSV-файлу
     :return: список словарей с транзакциями
     """
-    df = pd.read_csv(file_path)
-    # Приведение типов, чтобы mypy не ругался
+    df = pd.read_csv(file_path, sep=";")
     return cast(List[Dict[str, Any]], df.to_dict(orient="records"))
 
 
@@ -23,5 +22,4 @@ def read_transactions_from_excel(file_path: str) -> List[Dict[str, Any]]:
     :return: список словарей с транзакциями
     """
     df = pd.read_excel(file_path)
-    # Приведение типов, чтобы mypy не ругался
     return cast(List[Dict[str, Any]], df.to_dict(orient="records"))
