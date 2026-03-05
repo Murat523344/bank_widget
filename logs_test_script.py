@@ -1,7 +1,7 @@
 # test_logs.py — проверка логирования
 
-from src.utils import read_json, some_util_function, another_util_function
-from src.masks import get_mask_account, get_mask_card_number
+from utils import read_json, some_util_function, another_util_function
+from masks import get_mask_account, get_mask_card_number
 
 # --- utils ---
 print("Проверка utils...")
