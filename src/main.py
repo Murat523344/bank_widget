@@ -1,7 +1,16 @@
+from pathlib import Path
 import json
 
 from src.file_readers import read_transactions_from_csv, read_transactions_from_excel
 from src.processing import filter_by_state, process_bank_search, sort_by_date
+
+# определяем корневую папку проекта
+BASE_DIR = Path(__file__).resolve().parents[1]
+
+# формируем пути к файлам
+JSON_PATH = BASE_DIR / "data" / "transactions.json"
+CSV_PATH = BASE_DIR / "data" / "transactions.csv"
+EXCEL_PATH = BASE_DIR / "data" / "transactions_excel.xlsx"
 
 
 def main() -> None:
@@ -20,16 +29,16 @@ def main() -> None:
 
     if choice == "1":
         print("Для обработки выбран JSON-файл.")
-        with open("data/transactions.json", encoding="utf-8") as file:
+        with open(JSON_PATH, encoding="utf-8") as file:
             operations = json.load(file)
 
     elif choice == "2":
         print("Для обработки выбран CSV-файл.")
-        operations = read_transactions_from_csv("data/transactions.csv")
+        operations = read_transactions_from_csv(CSV_PATH)
 
     elif choice == "3":
         print("Для обработки выбран Excel-файл.")
-        operations = read_transactions_from_excel("data/transactions_excel.xlsx")
+        operations = read_transactions_from_excel(EXCEL_PATH)
 
     else:
         print("Неверный выбор.")
@@ -73,7 +82,11 @@ def main() -> None:
         return
 
     for op in operations:
-        print(op)
+        print(
+            f"{op.get('date')} | "
+            f"{op.get('description')} | "
+            f"{op.get('amount')} {op.get('currency_code')}"
+        )
 
 
 if __name__ == "__main__":
