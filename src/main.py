@@ -4,13 +4,21 @@ import json
 from src.file_readers import read_transactions_from_csv, read_transactions_from_excel
 from src.processing import filter_by_state, process_bank_search, sort_by_date
 
-# определяем корневую папку проекта
 BASE_DIR = Path(__file__).resolve().parents[1]
 
-# формируем пути к файлам
 JSON_PATH = BASE_DIR / "data" / "transactions.json"
 CSV_PATH = BASE_DIR / "data" / "transactions.csv"
 EXCEL_PATH = BASE_DIR / "data" / "transactions_excel.xlsx"
+
+
+def is_rub_operation(operation: dict) -> bool:
+    """Проверяет, является ли операция рублевой."""
+    return (
+        operation.get("operationAmount", {})
+        .get("currency", {})
+        .get("code") == "RUB"
+        or operation.get("currency_code") == "RUB"
+    )
 
 
 def main() -> None:
@@ -62,10 +70,7 @@ def main() -> None:
     rub_answer = input("Выводить только рублевые транзакции? Да/Нет: ").lower()
 
     if rub_answer == "да":
-        operations = [
-            op for op in operations
-            if op.get("operationAmount", {}).get("currency", {}).get("code") == "RUB"
-        ]
+        operations = [op for op in operations if is_rub_operation(op)]
 
     search_answer = input(
         "Отфильтровать список транзакций по определенному слову в описании? Да/Нет: "
@@ -82,11 +87,18 @@ def main() -> None:
         return
 
     for op in operations:
-        print(
-            f"{op.get('date')} | "
-            f"{op.get('description')} | "
-            f"{op.get('amount')} {op.get('currency_code')}"
+        description = op.get("description", "Без описания")
+        date = op.get("date", "")
+        amount = op.get("amount") or op.get("operationAmount", {}).get("amount")
+
+        currency = (
+            op.get("currency_code")
+            or op.get("operationAmount", {})
+            .get("currency", {})
+            .get("code")
         )
+
+        print(f"{date} | {description} | {amount} {currency}")
 
 
 if __name__ == "__main__":
