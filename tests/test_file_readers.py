@@ -13,16 +13,23 @@ sample_data = [
 
 @patch("pandas.read_csv")
 def test_read_transactions_from_csv(mock_read_csv):
+    """
+    Тестируем функцию чтения CSV-файла.
+    Учитываем, что в функции используется sep=';'.
+    """
     mock_df = pd.DataFrame(sample_data)
     mock_read_csv.return_value = mock_df
 
     result = read_transactions_from_csv("dummy_path.csv")
     assert result == sample_data
-    mock_read_csv.assert_called_once_with("dummy_path.csv")
+    mock_read_csv.assert_called_once_with("dummy_path.csv", sep=";")
 
 
 @patch("pandas.read_excel")
 def test_read_transactions_from_excel(mock_read_excel):
+    """
+    Тестируем функцию чтения Excel-файла.
+    """
     mock_df = pd.DataFrame(sample_data)
     mock_read_excel.return_value = mock_df
 
